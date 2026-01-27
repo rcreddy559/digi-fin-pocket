@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.expense.service.util.ExpenseCategory;
+import com.expense.service.util.PaymentMode;
 
 @Entity
 @Table(name = "expenses")
@@ -36,7 +37,7 @@ public class Expense {
     private LocalDate expenseDate;
 
     @Column(nullable = false)
-    private String paymentMode;
+    private PaymentMode paymentMode;
 
     private String description;
 

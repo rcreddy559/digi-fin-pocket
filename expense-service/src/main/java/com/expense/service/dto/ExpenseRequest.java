@@ -32,7 +32,6 @@ public class ExpenseRequest {
     private ExpenseCategory category;
 
     @NotNull
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate expenseDate;
 
