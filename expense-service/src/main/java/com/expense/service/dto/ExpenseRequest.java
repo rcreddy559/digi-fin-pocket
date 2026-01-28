@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -19,7 +20,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExpenseRequest {
+public class ExpenseRequest implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @NotNull
     private Long userId;

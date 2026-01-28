@@ -3,6 +3,8 @@ package com.expense.service.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.expense.service.dto.ExpenseRequest;
@@ -26,6 +28,7 @@ public class ExpenseService {
         this.repositry = repositry;
     }
 
+    @CacheEvict(value = "expenses", allEntries = true)
     public ExpenseRequest addExpense(ExpenseRequest expenseRequest) {
         log.info("Adding new expense: {}", expenseRequest);
 
@@ -38,10 +41,12 @@ public class ExpenseService {
         return result;
     }
 
+    @Cacheable(value = "expenses", key = "'list-' + #startDate.toString() + '-' + #endDate.toString()")
     public List<ExpenseRequest> getExpenses(LocalDate startDate, LocalDate endDate) {
         return repositry.findByExpenseDateBetween(startDate, endDate).stream().map(expenseMapper::toDto).toList();
     }
 
+    @Cacheable(value = "expenses", key = "'id-' + #id")
     public ExpenseRequest getExpenseById(Long id) {
         return expenseMapper.toDto(repositry.findById(id)
                 .orElseThrow(() -> {
@@ -50,6 +55,7 @@ public class ExpenseService {
                 }));
     }
 
+    @CacheEvict(value = "expenses", allEntries = true)
     public ExpenseRequest updateExpense(Long id, ExpenseRequest request) {
         var expense = repositry.findById(id)
                 .orElseThrow(() -> {
@@ -64,6 +70,7 @@ public class ExpenseService {
         return expenseMapper.toDto(repositry.save(expense));
     }
 
+    @CacheEvict(value = "expenses", allEntries = true)
     public void deleteExpense(Long id) {
         repositry.deleteById(id);
     }
@@ -74,6 +81,7 @@ public class ExpenseService {
         return getExpensesByCategory(startDate, endDate, category);
     }
 
+    @Cacheable(value = "expenses", key = "'cat-' + #category.toString() + '-' + #startDate.toString() + '-' + #endDate.toString()")
     public List<ExpenseRequest> getExpensesByCategory(LocalDate startDate,
             LocalDate endDate,
             ExpenseCategory category) {
@@ -81,6 +89,7 @@ public class ExpenseService {
                 .map(expenseMapper::toDto).toList();
     }
 
+    @Cacheable(value = "expenses", key = "'pm-' + #paymentMode.toString() + '-' + #startDate.toString() + '-' + #endDate.toString()")
     public List<ExpenseRequest> getExpensesByPaymentMode(LocalDate startDate,
             LocalDate endDate,
             PaymentMode paymentMode) {
