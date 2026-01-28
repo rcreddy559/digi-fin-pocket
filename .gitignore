@@ -34,4 +34,5 @@ target
 expense-service/build_output.txt
 expense-service/output.txt
 expense-service/test_output.txt
-
+expense-service/build_output_clean.txt
+.vscode/settings.json
