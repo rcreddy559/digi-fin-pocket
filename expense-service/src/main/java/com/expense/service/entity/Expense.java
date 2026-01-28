@@ -30,12 +30,14 @@ public class Expense {
     @Column(nullable = false)
     private BigDecimal amount;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ExpenseCategory category;
 
     @Column(nullable = false)
     private LocalDate expenseDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentMode paymentMode;
 

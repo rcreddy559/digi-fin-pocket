@@ -6,8 +6,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.expense.service.dto.ExpenseRequest;
+import com.expense.service.exception.ExpenseNotFoundException;
 import com.expense.service.mapper.ExpenseMapper;
 import com.expense.service.repositry.ExpenseRepositry;
+import com.expense.service.util.ExpenseCategory;
+import com.expense.service.util.PaymentMode;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,11 +43,19 @@ public class ExpenseService {
     }
 
     public ExpenseRequest getExpenseById(Long id) {
-        return expenseMapper.toDto(repositry.findById(id).orElseThrow());
+        return expenseMapper.toDto(repositry.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Expense with id {} not found", id);
+                    return new ExpenseNotFoundException("Expense not found with id: " + id);
+                }));
     }
 
     public ExpenseRequest updateExpense(Long id, ExpenseRequest request) {
-        var expense = repositry.findById(id).orElseThrow();
+        var expense = repositry.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Failed to update: Expense with id {} not found", id);
+                    return new ExpenseNotFoundException("Expense not found with id: " + id);
+                });
         expense.setAmount(request.getAmount());
         expense.setCategory(request.getCategory());
         expense.setExpenseDate(request.getExpenseDate());
@@ -57,10 +68,24 @@ public class ExpenseService {
         repositry.deleteById(id);
     }
 
-    public List<ExpenseRequest> getExpensesByCategory(String category,
+    public List<ExpenseRequest> getExpensesByCategory(
+            ExpenseCategory category,
             LocalDate startDate, LocalDate endDate) {
-        return repositry.findByExpenseDateBetween(startDate, endDate).stream()
-                .filter(expense -> expense.getCategory().equals(category)).map(expenseMapper::toDto).toList();
+        return getExpensesByCategory(startDate, endDate, category);
+    }
+
+    public List<ExpenseRequest> getExpensesByCategory(LocalDate startDate,
+            LocalDate endDate,
+            ExpenseCategory category) {
+        return repositry.findByExpenseDateBetweenAndCategory(startDate, endDate, category).stream()
+                .map(expenseMapper::toDto).toList();
+    }
+
+    public List<ExpenseRequest> getExpensesByPaymentMode(LocalDate startDate,
+            LocalDate endDate,
+            PaymentMode paymentMode) {
+        return repositry.findByExpenseDateBetweenAndPaymentMode(startDate, endDate, paymentMode).stream()
+                .map(expenseMapper::toDto).toList();
     }
 
 }

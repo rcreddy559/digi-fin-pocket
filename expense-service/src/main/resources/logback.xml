@@ -1,0 +1,32 @@
+<configuration>
+
+    <appender name="MosSPLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/expense-service.log</file>
+        <encoder>
+            <pattern>%d %-5p [%c{0}] \(%t\) %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/expense-service.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="MOS_SP_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>1000</queueSize>
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="MosSPLog"/>
+    </appender>
+
+    <logger name="com.expense.service" level="INFO" additivity="false">
+        <appender-ref ref="MOS_SP_ASYNC"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="MOS_SP_ASYNC"/>
+    </root>
+
+</configuration>

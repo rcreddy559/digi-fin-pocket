@@ -12,11 +12,17 @@ spring:
   #JPA
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
+    defer-datasource-initialization: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # SQL Initialization
+  sql:
+    init:
+      mode: always
 
 server:
   port: 8091
