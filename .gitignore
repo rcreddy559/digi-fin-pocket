@@ -30,3 +30,8 @@ logs
 # Target
 target
 
+# Build and Test Outputs
+expense-service/build_output.txt
+expense-service/output.txt
+expense-service/test_output.txt
+

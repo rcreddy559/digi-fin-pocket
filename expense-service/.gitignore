@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Logs
+logs
+*.log
+
+# Target
+target
+
+# Output files
+build_output.txt
+output.txt
+test_output.txt
