@@ -22,3 +22,19 @@ INSERT INTO expenses (user_id, amount, category, expense_date, payment_mode, des
 (1, 1500.00, 'UTILITIES', '2026-01-11', 'UPI', 'Gas cylinder and maintenance'),
 (2, 890.00, 'ENTERTAINMENT', '2026-01-19', 'WALLET', 'Concert tickets'),
 (3, 500.00, 'OTHER', '2026-01-21', 'CASH', 'Miscellaneous household items');
+
+
+-- Sample data for income table
+INSERT INTO income (user_id, amount, source, date, payment_mode, description) VALUES
+(1, 75000.00, 'SALARY', '2026-01-01', 'NET_BANKING', 'Monthly salary for January'),
+(2, 65000.00, 'SALARY', '2026-01-01', 'NET_BANKING', 'Monthly salary for January'),
+(3, 55000.00, 'SALARY', '2026-01-01', 'NET_BANKING', 'Monthly salary for January'),
+(1, 5000.00, 'INVESTMENT', '2026-01-10', 'DEBIT_CARD', 'Dividend from stocks'),
+(2, 12000.00, 'BUSINESS', '2026-01-15', 'UPI', 'Freelance project payment'),
+(3, 2000.00, 'OTHER', '2026-01-20', 'CASH', 'Gift from relative'),
+(1, 1500.00, 'INVESTMENT', '2026-01-25', 'NET_BANKING', 'Interest from savings account'),
+(2, 8000.00, 'BUSINESS', '2026-01-28', 'UPI', 'Consulting fee'),
+(3, 10000.00, 'SALARY', '2026-01-15', 'NET_BANKING', 'Mid-month bonus'),
+(1, 3000.00, 'OTHER', '2026-01-22', 'WALLET', 'Cashback reward'),
+(2, 4500.00, 'INVESTMENT', '2026-01-12', 'DEBIT_CARD', 'Mutual fund returns'),
+(3, 7000.00, 'BUSINESS', '2026-01-05', 'UPI', 'Sales commission');

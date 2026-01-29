@@ -1,6 +1,9 @@
 spring:
   application:
     name: expense-service
+  threads:
+    virtual:
+      enabled: true
   
   #PostgreSQL
   datasource:

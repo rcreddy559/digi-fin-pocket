@@ -43,11 +43,15 @@ public class ExpenseService {
 
     @Cacheable(value = "expenses", key = "'list-' + #startDate.toString() + '-' + #endDate.toString()")
     public List<ExpenseRequest> getExpenses(LocalDate startDate, LocalDate endDate) {
-        return repositry.findByExpenseDateBetween(startDate, endDate).stream().map(expenseMapper::toDto).toList();
+        return repositry.findByExpenseDateBetween(startDate, endDate).join().stream().map(expenseMapper::toDto)
+                .toList();
     }
 
     @Cacheable(value = "expenses", key = "'id-' + #id")
     public ExpenseRequest getExpenseById(Long id) {
+        if (id == 0 || id == null) {
+            throw new ExpenseNotFoundException("Expense not found with id: " + id);
+        }
         return expenseMapper.toDto(repositry.findById(id)
                 .orElseThrow(() -> {
                     log.warn("Expense with id {} not found", id);
@@ -72,6 +76,9 @@ public class ExpenseService {
 
     @CacheEvict(value = "expenses", allEntries = true)
     public void deleteExpense(Long id) {
+        if (id <= 0 || id == null) {
+            throw new ExpenseNotFoundException("Expense not found with id: " + id);
+        }
         repositry.deleteById(id);
     }
 
@@ -85,7 +92,7 @@ public class ExpenseService {
     public List<ExpenseRequest> getExpensesByCategory(LocalDate startDate,
             LocalDate endDate,
             ExpenseCategory category) {
-        return repositry.findByExpenseDateBetweenAndCategory(startDate, endDate, category).stream()
+        return repositry.findByExpenseDateBetweenAndCategory(startDate, endDate, category).join().stream()
                 .map(expenseMapper::toDto).toList();
     }
 
@@ -93,7 +100,7 @@ public class ExpenseService {
     public List<ExpenseRequest> getExpensesByPaymentMode(LocalDate startDate,
             LocalDate endDate,
             PaymentMode paymentMode) {
-        return repositry.findByExpenseDateBetweenAndPaymentMode(startDate, endDate, paymentMode).stream()
+        return repositry.findByExpenseDateBetweenAndPaymentMode(startDate, endDate, paymentMode).join().stream()
                 .map(expenseMapper::toDto).toList();
     }
 
