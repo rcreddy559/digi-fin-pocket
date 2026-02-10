@@ -1,21 +1,11 @@
 spring:
-  application:
-    name: expense-service
-  config:
-    import: optional:configserver:http://localhost:8889
-  cloud:
-    config:
-      fail-fast: false  # Don't fail if config server is unavailable
-      retry:
-        max-attempts: 3
-
   threads:
     virtual:
       enabled: true
 
   #PostgreSQL
   datasource:
-    url: jdbc:postgresql://localhost:5432/expense_db
+    url: jdbc:postgresql://localhost:5432/user_db
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver
@@ -47,7 +37,7 @@ spring:
       cache-null-values: false
 
 server:
-  port: 8091
+  port: 8095
 
 springdoc:
   api-docs:

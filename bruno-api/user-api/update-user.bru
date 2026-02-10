@@ -1,0 +1,22 @@
+meta {
+  name: Update User
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:8092/digi-fin-pocket/users/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "John Doe Updated",
+    "userName": "johndoe",
+    "email": "johndoe_updated@example.com",
+    "phoneNumber": "9876543210",
+    "password": "newpassword123",
+    "role": "USER"
+  }
+}

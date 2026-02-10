@@ -1,0 +1,22 @@
+meta {
+  name: Add Income
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8091/digi-fin-pocket/income
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userId": 1,
+    "source": "SALARY",
+    "amount": 5000.00,
+    "description": "January Salary",
+    "date": "2026-01-30",
+    "paymentMode": "NET_BANKING"
+  }
+}

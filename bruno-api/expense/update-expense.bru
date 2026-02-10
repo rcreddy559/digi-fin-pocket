@@ -1,0 +1,22 @@
+meta {
+  name: Update Expense
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:8091/digi-fin-pocket/expense/update/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userId": 1,
+    "amount": 120.00,
+    "category": "FOOD",
+    "expenseDate": "30-01-2026",
+    "paymentMode": "UPI",
+    "description": "Lunch Updated"
+  }
+}

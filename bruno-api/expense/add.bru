@@ -1,0 +1,22 @@
+meta {
+  name: add
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8091/digi-fin-pocket/expense/add
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "userId": 23456,
+    "amount": 129.98,
+    "category":"SHOPPING",
+    "expenseDate": "28-01-2026",
+    "paymentMode": "UPI",
+    "description": " BUY SOME THING"
+  }
+}

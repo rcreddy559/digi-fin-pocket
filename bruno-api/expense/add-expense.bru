@@ -1,0 +1,22 @@
+meta {
+  name: Add Expense
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8091/digi-fin-pocket/expense/add
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userId": 1,
+    "amount": 100.50,
+    "category": "FOOD",
+    "expenseDate": "30-01-2026",
+    "paymentMode": "UPI",
+    "description": "Lunch"
+  }
+}

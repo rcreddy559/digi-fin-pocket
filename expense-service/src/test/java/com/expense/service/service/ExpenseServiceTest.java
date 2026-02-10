@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -117,7 +118,8 @@ class ExpenseServiceTest {
     @Test
     void getExpenses_Success() {
         LocalDate now = LocalDate.now();
-        when(repositry.findByExpenseDateBetween(now, now)).thenReturn(List.of(expense));
+        when(repositry.findByExpenseDateBetween(now, now))
+                .thenReturn(CompletableFuture.completedFuture(List.of(expense)));
         when(expenseMapper.toDto(any(Expense.class))).thenReturn(expenseRequest);
 
         List<ExpenseRequest> results = expenseService.getExpenses(now, now);

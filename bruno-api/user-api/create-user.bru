@@ -1,0 +1,22 @@
+meta {
+  name: Create User
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8092/digi-fin-pocket/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "John Doe",
+    "userName": "johndoe",
+    "email": "johndoe@example.com",
+    "phoneNumber": "9876543210",
+    "password": "password123",
+    "role": "USER"
+  }
+}

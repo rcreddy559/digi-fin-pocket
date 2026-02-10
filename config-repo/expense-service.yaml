@@ -1,14 +1,4 @@
 spring:
-  application:
-    name: expense-service
-  config:
-    import: optional:configserver:http://localhost:8889
-  cloud:
-    config:
-      fail-fast: false  # Don't fail if config server is unavailable
-      retry:
-        max-attempts: 3
-
   threads:
     virtual:
       enabled: true
