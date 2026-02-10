@@ -9,7 +9,6 @@ import com.user.entity.User;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    @Mapping(target = "id", ignore = true)
     public UserRequest toDto(User user);
 
     @Mapping(target = "id", ignore = true)
